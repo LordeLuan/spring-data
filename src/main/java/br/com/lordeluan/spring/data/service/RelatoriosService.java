@@ -8,6 +8,7 @@ import java.util.Scanner;
 import org.springframework.stereotype.Service;
 
 import br.com.lordeluan.spring.data.entities.Funcionario;
+import br.com.lordeluan.spring.data.entities.FuncionarioProjecao;
 import br.com.lordeluan.spring.data.repository.CargoRepository;
 import br.com.lordeluan.spring.data.repository.FuncionarioRepository;
 import br.com.lordeluan.spring.data.repository.UnidadeTrabalhoRepository;
@@ -36,6 +37,7 @@ public class RelatoriosService {
 			System.out.println("1 - Busca funcionario por nome");
 			System.out.println("2 - Busca funcionario por nome, salario e data contratacao");
 			System.out.println("3 - Busca funcionario por data contratacao");
+			System.out.println("4 - Pesquisa funcionario salário");
 
 			int action = scanner.nextInt();
 
@@ -48,6 +50,9 @@ public class RelatoriosService {
 				break;
 			case 3:
 				buscaFuncionarioDataContratacao(scanner);
+				break;
+			case 4:
+				pesquisaFuncionarioSalario();
 				break;
 			default:
 				system = false;
@@ -88,5 +93,12 @@ public class RelatoriosService {
 
 		List<Funcionario> funcionarios = funcionarioRepository.findDataContratacaoMaior(localDate);
 		funcionarios.forEach(System.out::println);
+	}
+
+	private void pesquisaFuncionarioSalario() {
+		List<FuncionarioProjecao> list = funcionarioRepository.findFuncionarioSalario();
+		list.forEach(f -> System.out.println("Funcionario: id: " + f.getId()+ 
+				" | nome: " + f.getNome() + 
+				" | salario: " + f.getSalario()));
 	}
 }

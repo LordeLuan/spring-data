@@ -97,7 +97,7 @@ public class CrudFuncionarioService {
 		funcionario.setCargo(cargo.get());
 		funcionario.setUnidadeTrabalhos(unidades);
 
-//		funcionarioRepository.save(funcionario);
+		funcionarioRepository.save(funcionario);
 		System.out.println("Salvo");
 	}
 
@@ -148,14 +148,14 @@ public class CrudFuncionarioService {
 		Optional<Cargo> cargo = cargoRepository.findById(cargoId);
 		funcionario.setCargo(cargo.get());
 
-//		funcionarioRepository.save(funcionario);
+		funcionarioRepository.save(funcionario);
 		System.out.println("Alterado");
 	}
 
 	private void visualizar(Scanner scanner) {
 		System.out.println("Qual página deseja visualizar?");
 		Integer page = scanner.nextInt();
-		Pageable pageable = PageRequest.of(page, 5, Sort.unsorted());
+		Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "nome"));
 		Page<Funcionario> funcionarios = funcionarioRepository.findAll(pageable);
 
 		System.out.println(funcionarios);
@@ -167,7 +167,7 @@ public class CrudFuncionarioService {
 	private void deletar(Scanner scanner) {
 		System.out.println("Id");
 		int id = scanner.nextInt();
-//		funcionarioRepository.deleteById(id);
+		funcionarioRepository.deleteById(id);
 		System.out.println("Deletado");
 	}
 
